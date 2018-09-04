@@ -1,1 +1,6 @@
-<%= users %>
+<% users.forEach(function(user){ %>
+    <div>
+        <p><%= user.name %></p>
+        <img src="<%= user.img %>" />
+    </div>
+<% }) %>
