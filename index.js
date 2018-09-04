@@ -1,10 +1,33 @@
 var express = require("express");
+var mongoose = require("mongoose");
 var aws = require("aws-sdk");
+var Users = require("./models/users.js");
 
 var app = express();
+mongoose.connect(process.env.DB_URL);
 
 app.get("/", function(req,res){
-    res.render("index.ejs");
+  res.render("index.ejs");
+});
+
+app.post("/save-details", function(req,res){
+  Users.create({
+    name: req.body.name,
+    img: req.body.img
+  })
+  .then(function(newUser){
+    console.log(newUser);
+  });
+});
+
+app.get("/view", function(req,res){
+  Users.find({})
+  .then(function(foundUsers){
+    res.render("view.ejs", {users:foundUsers});
+  })
+  .catch(function(err){
+    console.log(err);
+  });
 });
 
 app.get('/sign-s3', (req, res) => {
