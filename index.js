@@ -5,6 +5,7 @@ var Users = require("./models/users.js");
 
 var app = express();
 mongoose.connect(process.env.DB_URL);
+app.use(express.bodyParser());
 
 app.get("/", function(req,res){
   res.render("index.ejs");
