@@ -1,11 +1,12 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var aws = require("aws-sdk");
+var bodyParser = require("body-parser");
 var Users = require("./models/users.js");
 
 var app = express();
 mongoose.connect(process.env.DB_URL);
-app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", function(req,res){
   res.render("index.ejs");
